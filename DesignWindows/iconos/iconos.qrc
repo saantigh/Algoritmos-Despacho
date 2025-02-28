@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="iconos">
+    <file>icono+proceso.png</file>
+    <file>icono+linux2.png</file>
+    <file>icono+linux.jpg</file>
+    <file>icono+apple.png</file>
+    <file>icono+windows3.png</file>
+  </qresource>
+</RCC>
