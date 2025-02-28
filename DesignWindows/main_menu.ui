@@ -98,7 +98,7 @@ font: 700 12pt &quot;Arial Rounded MT&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/iconos/icono+windows3.png);</string>
+     <string notr="true">image: url(:/icono/icono+windows3.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -114,7 +114,7 @@ font: 700 12pt &quot;Arial Rounded MT&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/iconos/icono+apple.png);</string>
+     <string notr="true">image: url(:/icono/icono+apple.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -130,7 +130,7 @@ font: 700 12pt &quot;Arial Rounded MT&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/iconos/icono+linux2.png);</string>
+     <string notr="true">image: url(:/icono/icono+linux2.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -146,7 +146,7 @@ font: 700 12pt &quot;Arial Rounded MT&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/iconos/icono+proceso.png);</string>
+     <string notr="true">image: url(:/icono/icono+proceso.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -315,6 +315,7 @@ color: rgb(0, 0, 0);</string>
  </widget>
  <resources>
   <include location="iconos/iconos.qrc"/>
+  <include location="imagenes/imagenes.qrc"/>
  </resources>
  <connections/>
 </ui>
