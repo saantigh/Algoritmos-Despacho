@@ -1,11 +1,10 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from DesignWindows.ventana_principal import Ui_MainWindow
+from PyQt5.QtWidgets import QApplication
+from ControllerWindows.controller_ventana_principal import ControllerVentanaPrincipal
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    MainWindow = QMainWindow()        # Crea la ventana principal
-    ui = Ui_MainWindow()              # Instancia la interfaz generada
-    ui.setupUi(MainWindow)            # Configura la UI en la ventana principal
-    MainWindow.show()
-    sys.exit(app.exec())
+    ventana_principal = ControllerVentanaPrincipal()
+    ventana_principal.show()
+    sys.exit(app.exec_())
