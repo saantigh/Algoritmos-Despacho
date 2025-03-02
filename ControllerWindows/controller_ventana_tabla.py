@@ -3,7 +3,7 @@
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem,QMessageBox
 from PyQt5.QtCore import Qt
 from DesignWindows.ventana_tabla import Ui_MainWindow as Ui_VentanaTabla
-from Algoritmos import algoritmo_round_robin
+from ControllerWindows.simulador_procesos import SimuladorProcesos
 
 class ControllerVentanaTabla(QMainWindow):
     def __init__(self, num_procesos):
@@ -102,69 +102,20 @@ class ControllerVentanaTabla(QMainWindow):
         except ValueError:
             self.ui.boton_simular.setEnabled(False)
 
+
     def simular(self):
-        # Primero, valida que todas las celdas de la tabla estén llenas.
-        num_filas = self.ui.tabla_procesos.rowCount()
-        processes = []
-        
-        for i in range(num_filas):
-            # Suponiendo que la primera columna es 'Ráfaga' y la segunda es 'Tiempo de llegada'
-            item_burst = self.ui.tabla_procesos.item(i, 0)
-            item_arrival = self.ui.tabla_procesos.item(i, 1)
-            if item_burst is None or item_arrival is None or item_burst.text().strip() == "" or item_arrival.text().strip() == "":
-                QMessageBox.warning(self, "Error", f"Falta llenar datos en la fila {i+1}.")
-                return
-            try:
-                burst = float(item_burst.text().strip())
-                arrival = float(item_arrival.text().strip())
-            except ValueError:
-                QMessageBox.warning(self, "Error", f"Los valores de la fila {i+1} deben ser numéricos.")
-                return
-            
-            processes.append({
-                "id": f"P{i+1}",
-                "burst": burst,
-                "arrival": arrival
-            })
-        
-        # Lee el algoritmo seleccionado
-        algoritmo = self.ui.seleccionador_algoritmo.currentText().strip().upper()
-        
-        if algoritmo in ["FIFO", "SJF"]:
-            # Por ejemplo, si tienes funciones FIFO o SJF, las llamarías aquí.
-            # Supongamos que para FIFO tienes una función fifo_intervals(processes)
-            intervals = None  # Aquí llamarías a la función correspondiente.
-            # Ejemplo:
-            # intervals = fifo_intervals(processes)
-            # O para SJF:
-            # intervals = sjf_intervals(processes)
-            # Luego, habilitas o llamas al método para graficar el diagrama.
-            pass
-        elif algoritmo == "ROUND ROBIN":
-            # Obtén el quantum del widget (por ejemplo, un QComboBox o QSpinBox)
-            try:
-                quantum = int(self.ui.seleccionador_quantum.currentText().strip())
-            except ValueError:
-                QMessageBox.warning(self, "Error", "El quantum debe ser un número entero válido.")
-                return
-            # Llama a la función que simula Round Robin, que debe devolver los intervalos
-            intervals,tiempo_sistema,tiempo_espera = algoritmo_round_robin.round_robin_variant(processes, quantum)
-            promedio_tiempos_sistema = sum(tiempo_sistema.values()) / len(tiempo_sistema)
-            promedio_tiempos_espera = sum(tiempo_espera.values()) / len(tiempo_espera)
-        else:
-            QMessageBox.warning(self, "Error", "Algoritmo no reconocido.")
-            return
-
-        # Aquí podrías, por ejemplo, almacenar 'intervals' en una variable global
-        # o pasarla a la función que genera el diagrama de Gantt.
-        # Por ejemplo:
+        simulador = SimuladorProcesos(self.ui.tabla_procesos,
+                                    self.ui.seleccionador_algoritmo,
+                                    self.ui.seleccionador_quantum)
+        result = simulador.simular(self)  # 'self' se pasa como parent para los mensajes
+        if result is None:
+            return  # Error en validación o ejecución
+        intervals, tiempo_sistema, tiempo_espera, promedio_tiempo_sistema, promedio_tiempo_espera = result
         self.intervalos = intervals
-        # Y luego, abrir la ventana del diagrama o llamar a la función para graficarlo.
-        # self.mostrarDiagramaGantt(intervals)
+        # Aquí puedes proceder a graficar el diagrama de Gantt o pasar estos datos a otra ventana
         print("Intervalos generados:", intervals)
-        print("Tiempo de espera:",tiempo_espera)
-        print("Tiempo sistema:",tiempo_sistema)
-        print("Promedio Tiempos de sistema:",promedio_tiempos_sistema)
-        print("Promedio Tiempos de espera:",promedio_tiempos_espera)
-
+        print("Tiempo de espera:", tiempo_espera)
+        print("Tiempo sistema:", tiempo_sistema)
+        print("Promedio Tiempo Sistema:", promedio_tiempo_sistema)
+        print("Promedio Tiempo Espera:", promedio_tiempo_espera)
         
