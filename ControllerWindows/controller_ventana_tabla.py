@@ -149,6 +149,8 @@ class ControllerVentanaTabla(QMainWindow):
                 return
             # Llama a la función que simula Round Robin, que debe devolver los intervalos
             intervals,tiempo_sistema,tiempo_espera = algoritmo_round_robin.round_robin_variant(processes, quantum)
+            promedio_tiempos_sistema = sum(tiempo_sistema.values()) / len(tiempo_sistema)
+            promedio_tiempos_espera = sum(tiempo_espera.values()) / len(tiempo_espera)
         else:
             QMessageBox.warning(self, "Error", "Algoritmo no reconocido.")
             return
@@ -162,3 +164,7 @@ class ControllerVentanaTabla(QMainWindow):
         print("Intervalos generados:", intervals)
         print("Tiempo de espera:",tiempo_espera)
         print("Tiempo sistema:",tiempo_sistema)
+        print("Promedio Tiempos de sistema:",promedio_tiempos_sistema)
+        print("Promedio Tiempos de espera:",promedio_tiempos_espera)
+
+        
