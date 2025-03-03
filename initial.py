@@ -8,3 +8,4 @@ if __name__ == "__main__":
     ventana_principal = ControllerVentanaPrincipal()
     ventana_principal.show()
     sys.exit(app.exec_())
+    

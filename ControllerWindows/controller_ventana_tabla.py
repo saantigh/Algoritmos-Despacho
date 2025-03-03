@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem,QMessageBox
 from PyQt5.QtCore import Qt
 from DesignWindows.ventana_tabla import Ui_MainWindow as Ui_VentanaTabla
 from ControllerWindows.simulador_procesos import SimuladorProcesos
+from ControllerWindows.controller_ventana_resultados import ControllerVentanaResultados
 
 class ControllerVentanaTabla(QMainWindow):
     def __init__(self, num_procesos):
@@ -111,11 +112,18 @@ class ControllerVentanaTabla(QMainWindow):
         if result is None:
             return  # Error en validación o ejecución
         intervals, tiempo_sistema, tiempo_espera, promedio_tiempo_sistema, promedio_tiempo_espera = result
-        self.intervalos = intervals
-        # Aquí puedes proceder a graficar el diagrama de Gantt o pasar estos datos a otra ventana
-        print("Intervalos generados:", intervals)
-        print("Tiempo de espera:", tiempo_espera)
-        print("Tiempo sistema:", tiempo_sistema)
-        print("Promedio Tiempo Sistema:", promedio_tiempo_sistema)
-        print("Promedio Tiempo Espera:", promedio_tiempo_espera)
-        
+
+         # Llamar a la ventana de resultados
+        algoritmo = self.ui.seleccionador_algoritmo.currentText().strip().upper()
+        self.ventana_resultados = ControllerVentanaResultados(
+            algoritmo=algoritmo,
+            intervals=intervals,
+            tiempo_espera=tiempo_espera,
+            tiempo_sistema=tiempo_sistema,
+            promedio_espera=promedio_tiempo_espera,
+            promedio_sistema=promedio_tiempo_sistema
+        )
+        self.ventana_resultados.show()
+        # Si deseamos, puedes cerrar esta ventana o mantenerla abierta
+        self.close()
+            

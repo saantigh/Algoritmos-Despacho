@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icono">
+    <file>icono+pulgar.png</file>
     <file>icono+apple.png</file>
     <file>icono+linux.jpg</file>
     <file>icono+linux2.png</file>

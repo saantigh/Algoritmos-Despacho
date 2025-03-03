@@ -163,4 +163,4 @@ class Ui_MainWindow(object):
         self.numero_de_procesos.setItemText(7, _translate("MainWindow", "9"))
         self.numero_de_procesos.setItemText(8, _translate("MainWindow", "10"))
         
-from DesignWindows.imagenes import imagenes
+from DesignWindows.imagenes import imagenes_new
